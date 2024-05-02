@@ -20,7 +20,6 @@ typedef struct Lista {
 void inserirLDE(Lista *l, char *nome, int idade, char *rg, int dia, int mes, int ano) {
     Celula *novo = malloc(sizeof(Celula));
     if (novo == NULL) {
-        printf("Memória insuficiente.\n");
         return;
     }
     strcpy(novo->nome, nome);
@@ -117,6 +116,7 @@ int cadastroDePaciente(){
     FILE *pacientes;
   
     do {
+      if(escolhaUsuario == 1){
         printf("\nInsira os dados do paciente abaixo: \n");
         printf("Nome: ");
         fgets(nome, sizeof(nome), stdin);
@@ -148,28 +148,57 @@ int cadastroDePaciente(){
                   printf("\nDatas inválidas\n");
               }
           }
-        }else{
+        }else {
         inserirLDE(l, nome, idade, rg, dia, mes, ano);
         printf("\n");
-        printf("Pacientes cadastrados até o momento:\n\n");
+        printf("Pacientes na fila de cadastros até o momento:\n\n");
         imprimirLDE(l);
         printf("\nContinuar cadastramento ?\n\n");
-        printf("1 - SIM // 2 - Salvar em Arquivo // 0 - Cancelar operação)\n");
+        printf("1 - SIM \n");
+        printf("2 - Salvar em Arquivo\n");
+        printf("3 - Remover paciente da lista\n");  
+        printf("0 - Cancelar operação e voltar ao MENU\n\n");
         printf("Escolha: ");
         scanf("%d", &escolhaUsuario);
         getchar(); 
-        if (escolhaUsuario == 2){
+        }
+      }if (escolhaUsuario == 2){
           Celula *atual = l->primeiro;
           while (atual != NULL){
             pacientes = fopen("pacientes.txt", "a");
             fprintf(pacientes, "Nome: %s, Idade: %d, RG: %s, Dia: %d, Mês: %d, Ano: %d \n", atual->nome, atual->idade, atual -> rg, atual-> dia, atual->mes, atual-> ano);
             atual = atual->proximo;
-            printf("\nIndivíduo cadastrado no banco de pacientes.\n\n");
+            printf("\nIndivíduo(s) cadastrado no banco de pacientes.\n");
           }
           fclose(pacientes);
-          return 0;
-        } 
-      }
+          printf("\nContinuar cadastramento ?\n\n");
+          printf("1 - SIM \n");
+          printf("2 - Salvar em Arquivo\n");
+          printf("3 - Remover paciente da lista\n");  
+          printf("0 - Cancelar operação e voltar ao MENU\n\n");
+          printf("Escolha: ");
+          scanf("%d", &escolhaUsuario);
+          getchar(); 
+        
+        } else if( escolhaUsuario==3){
+            char rg[10];
+            printf("Digite o RG do indivíduo para remoção:");
+            fgets(rg, sizeof(rg), stdin);
+            rg[strcspn(rg, "\n")] = '\0'; //swap
+            removerLDE(l, rg);
+            printf("\nIndivíduo(s) retirado da lista de pacientes\n");
+            printf("\nContinuar cadastramento ?\n\n");
+            printf("1 - SIM \n");
+            printf("2 - Salvar em Arquivo\n");
+            printf("3 - Remover paciente da lista\n");  
+            printf("0 - Cancelar operação e voltar ao MENU\n\n");
+            printf("Escolha: ");
+            scanf("%d", &escolhaUsuario);
+            getchar(); 
+            
+          }
+        
+      
     } while (escolhaUsuario != 0);
 
     return 0;
