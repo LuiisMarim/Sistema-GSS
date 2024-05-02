@@ -3,6 +3,9 @@ int menu ();
 void sair();
 int menuCadastroPaciente();
 int cadastroDePaciente();
-int cadastramentoAtual();
+void mostraCadastros();
+void atualizaCadastro();
+
+
 
 
