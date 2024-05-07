@@ -26,9 +26,8 @@ int menuCadastroPaciente(){
 
   int escolhaUsuario;
   printf("\nMenu de Cadastro.\n\n");
-  printf("1 - Cadastrar novo paciente.\n");
+  printf("1 - Opções de cadastrar novo paciente.\n");
   printf("2 - Mostrar banco de cadastros atual.\n");
-  printf("3 - Atualização de cadastros\n");
   printf("Escolha: ");
   scanf("%d", &escolhaUsuario);
 
@@ -41,9 +40,7 @@ int menuCadastroPaciente(){
       mostraCadastros();
   }
 
-  else if(escolhaUsuario == 3){
-    atualizaCadastro();
-  }
+
   return 0;
 
 }
