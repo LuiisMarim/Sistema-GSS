@@ -34,22 +34,10 @@ void inserirLDE(Lista *l, char *nome, int idade, char *rg, int dia, int mes, int
         l->primeiro = novo;
     } else {
         Celula *atual = l->primeiro;
-        Celula *anterior = NULL;
-        while (atual != NULL)  {
-            anterior = atual;
+        while (atual->proximo != NULL) {
             atual = atual->proximo;
         }
-        if (anterior == NULL) {
-            novo->proximo = l->primeiro;
-            l->primeiro = novo;
-        } else {
-            if (atual == NULL) {
-                anterior->proximo = novo;
-            } else {
-                novo->proximo = atual;
-                anterior->proximo = novo;
-            }
-        }
+        atual->proximo = novo;
     }
     l->qtde++;
 }
@@ -71,12 +59,28 @@ void removerLDE(Lista *l, char *rg) {
     } else {
         anterior->proximo = atual->proximo;
     }
-    free(atual); 
+    free(atual);
     l->qtde--;
+}
+
+void removerListaCompleta(Lista *l) {
+    Celula *atual = l->primeiro;
+    Celula *proximo;
+
+    while (atual != NULL) {
+        proximo = atual->proximo;
+        free(atual);
+        atual = proximo;
+    }
+    l->primeiro = NULL;
+    l->qtde = 0;
 }
 
 Lista *inicializa_LDE() {
     Lista *l = malloc(sizeof(Lista));
+    if (l == NULL) {
+        return NULL;
+    }
 
     l->primeiro = NULL;
     l->qtde = 0;
@@ -96,74 +100,73 @@ void imprimirLDE(Lista *l) {
     }
 }
 
-void atualizaCadastro(char pacienteRg[100]){
+void atualizaCadastro(){
     FILE *pacientes = fopen("pacientes.txt", "r");
+    if (pacientes == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
     int busca = 0;
     char linhas[100];
     FILE *arquivo = fopen ("temp.txt", "w");
-    pacienteRg[strcspn(pacienteRg, "\n")] = '\0';
-    while (fgets(linhas,sizeof(linhas), pacientes) != NULL){
-       if (strstr(linhas, pacienteRg) == NULL){
-         fprintf(arquivo,"%s", linhas); 
-       }else{
-         busca = 1;
-       }
+    if (arquivo == NULL) {
+        printf("Erro ao criar o arquivo temporário.\n");
+        fclose(pacientes);
+        return;
     }
+       
     fclose(pacientes);
     fclose(arquivo);
-
-    if(busca){
-      printf("\nPaciente excluido do banco de cadastros GSS\n");
-      remove("pacientes.txt");
-      rename("temp.txt", "pacientes.txt");
-      return;
-    }else{
-      printf("\nPaciente não encontrado, ou não inserido na base de dados GSS.\n");
-      remove("temp.txt");
-      return;
-    }
-  }
-
-void mostraCadastros(){
-  printf("\n--- PACIENTES GSS ---\n\n");
-  FILE *pacientes = fopen("pacientes.txt", "r");
-  char paciente [100];
-  while(fgets(paciente,100,pacientes) != NULL){
-    paciente[strcspn(paciente, "\n")] = '\0';
-    printf("%s\n", paciente);
-  }
-
-  int escolhaDoUsuario;
-  printf("\n---------------------\n");
-  fclose(pacientes);
-
-return;
-
-  if (escolhaDoUsuario == 0){
-    return;
-  }
-
+    
+    remove("pacientes.txt");
+    rename("temp.txt", "pacientes.txt");
+    
 }
 
+void mostraCadastros(){
+    printf("\n--- PACIENTES GSS ---\n\n");
+    FILE *pacientes = fopen("pacientes.txt", "r");
+    if (pacientes == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
+    char paciente[100];
+    while (fgets(paciente, sizeof(paciente), pacientes) != NULL){
+        paciente[strcspn(paciente, "\n")] = '\0';
+        printf("%s\n", paciente);
+    }
+    printf("\n---------------------\n");
+    fclose(pacientes);
+}
 
+void cadastra(Lista *l) {
+    FILE *pacientes = fopen("pacientes.txt", "a+");
+    if (pacientes == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
 
-int cadastroDePaciente(){
+    Celula *atual = l->primeiro;
+    while (atual != NULL){  
+        fprintf(pacientes, "Nome: %s, Idade: %d, RG: %s, Dia: %d, Mês: %d, Ano: %d \n",
+                atual->nome, atual->idade, atual->rg, atual->dia, atual->mes, atual->ano);
+        atual = atual->proximo;
+    }
+    fclose(pacientes);
+}
+
+int cadastroDePaciente() {
     char nome[100];
-  
     char idade_str[10];
-  
     char dia_str[10];
-  
     char rg[100];
-  
     char mes_str[10];
-  
     char ano_str[10];
-  
     int idade, dia, mes, ano, escolhaUsuario;
-  
-    Lista *l = inicializa_LDE();
- 
+       Lista *l = inicializa_LDE();
+   
+
+
     FILE *pacientes;
     printf("\n-------------------\n");
     printf("\n1 - Iniciar cadastro.\n");
@@ -172,10 +175,11 @@ int cadastroDePaciente(){
     printf("Escolha: ");
     scanf("%d", &escolhaUsuario);
     getchar();
-  
-  
-     while(escolhaUsuario!=0){ 
-            if(escolhaUsuario == 1){
+    
+ 
+    while (escolhaUsuario != 0) {
+        
+        if (escolhaUsuario == 1) {
             printf("\nInsira os dados do paciente abaixo: \n");
             printf("Nome: ");
             fgets(nome, sizeof(nome), stdin);
@@ -195,123 +199,105 @@ int cadastroDePaciente(){
             printf("Ano do nascimento: ");
             fgets(ano_str, sizeof(ano_str), stdin);
             ano = atoi(ano_str); 
-            if (dia > 31 || mes > 12 && mes <= 0 || ano < 1900) {
-              printf("\nDatas inválidas\n");
+            if (dia > 31 || mes > 12 || mes <= 0 || ano < 1900) {
+                printf("\nDatas inválidas\n");
             } else if (mes == 2) {
                 if (ano % 4 == 0) {
                     if (dia > 29) {
-                      printf("\nDatas inválidas\n");
-                  }
-                  } else {
-                  if (dia > 28) {
-                      printf("\nDatas inválidas\n");
-                  }
-              }
-            }else {
-            inserirLDE(l, nome, idade, rg, dia, mes, ano);
-            printf("\n");
-            printf("Pacientes na fila de cadastros até o momento:\n\n");
-            imprimirLDE(l);
-            printf("\nContinuar cadastramento ?\n\n");
-            printf("1 - SIM \n");
-            printf("2 - Salvar em Arquivo\n");
-            printf("3 - Remover paciente da lista\n");
-            printf("0 - Cancelar operação e voltar ao MENU\n\n");
-            printf("Escolha: ");
-            scanf("%d", &escolhaUsuario);
-            getchar();
-            }
-            }
-          else if (escolhaUsuario == 2){
-              Celula *atual = l->primeiro;
-
-             if (atual == NULL){
-                 printf("\n1 - Iniciar novo cadastro \n");
-                 printf("2 - Mostrar banco de cadastros GSS\n");
-                 printf("3 - Remover paciente\n");
-                 printf("0 - Cancelar operação e voltar ao MENU\n\n");
-                 printf("Escolha: ");
-                 scanf("%d", &escolhaUsuario);
-                 getchar();
-                 if(escolhaUsuario== 2){
-                     mostraCadastros();
-                 }
-                 
-             }else if (atual != NULL){   
-
-              
-              pacientes = fopen("pacientes.txt", "a+");
-              while (atual != NULL){  
-                fprintf(pacientes, "Nome: %s, Idade: %d, RG: %s, Dia: %d, Mês: %d, Ano: %d \n", atual->nome, atual->idade, atual -> rg, atual-> dia, atual->mes, atual-> ano);
-                atual = atual->proximo;
-
-              }
-             printf("\nIndivíduo(s) cadastrado no banco de pacientes.\n");
-              fclose(pacientes);
-              printf("\nContinuar cadastramento ?\n\n");
-              printf("1 - SIM \n");
-              printf("2 - Mostrar banco de cadastros GSS\n");
-              printf("3 - Remover paciente\n");  
-              printf("0 - Cancelar operação e voltar ao MENU\n\n");
-              printf("Escolha: ");
-              scanf("%d", &escolhaUsuario);
-              getchar(); 
-                 if (escolhaUsuario == 2){
-                     mostraCadastros();
-                     
-                     printf("\n\nContinuar cadastramento ?\n\n");
-                       printf("1 - SIM \n");  
-                       printf("0 - Cancelar operação e voltar ao MENU\n\n");
-                       printf("Escolha: ");
-                       scanf("%d", &escolhaUsuario);
-                       getchar(); 
-                 }
-             }
-            } 
-          else if( escolhaUsuario==3){
-              Lista *lista = inicializa_LDE();
-                FILE *pacientes = fopen("pacientes.txt", "r");
-                if (pacientes == NULL) {
-                    printf("Erro ao abrir o arquivo de pacientes.\n");
-                    return 1;
+                        printf("\nDatas inválidas\n");
+                    }
+                } else {
+                    if (dia > 28) {
+                        printf("\nDatas inválidas\n");
+                    }
                 }
-                char linha[256];
-                while (fgets(linha, sizeof(linha), pacientes)) {
-                    char nome[100], rg[100];
-                    int idade, dia, mes, ano;
-                    sscanf(linha, "Nome: %99[^,], Idade: %d, RG: %99[^,], Dia: %d, Mês: %d, Ano: %d",
-                           nome, &idade, rg, &dia, &mes, &ano);
-                    inserirLDE(lista, nome, idade, rg, dia, mes, ano);
-                }
-                printf("\n--- Lista atual para cadastramento ---\n");
-                imprimirLDE(l);
-                if(l == NULL){
-                    printf("\nLista Vazia !");
-                }
-                printf("\n--- Banco de Cadastros GSS atual ---\n");
-                imprimirLDE(lista);
+            } else {
+                inserirLDE(l, nome, idade, rg, dia, mes, ano);
                 printf("\n");
-                char rg[256];
-                printf("Digite o RG do indivíduo para remoção:");
-                fgets(rg, sizeof(rg), stdin);
-                rg[strcspn(rg, "\n")] = '\0'; //swap
-                removerLDE(l, rg);
-                atualizaCadastro(rg);
-                printf("\nIndivíduo retirado da lista de pacientes\n");
+                printf("Pacientes na fila de cadastros até o momento:\n\n");
+                imprimirLDE(l);
                 printf("\nContinuar cadastramento ?\n\n");
                 printf("1 - SIM \n");
                 printf("2 - Salvar em Arquivo\n");
-                printf("3 - Remover paciente da lista\n");  
+                printf("3 - Remover paciente\n");
+                printf("0 - Cancelar operação e voltar ao MENU\n\n");
+                printf("Escolha: ");
+                scanf("%d", &escolhaUsuario);
+                getchar();
+                
+            }
+        } else if (escolhaUsuario == 2) {
+            Celula *atual = l->primeiro;
+            if (atual == NULL) {
+                printf("\n1 - Iniciar novo cadastro \n");
+                printf("2 - Mostrar banco de cadastros GSS\n");
+                printf("3 - Remover paciente\n");
+                printf("0 - Cancelar operação e voltar ao MENU\n\n");
+                printf("Escolha: ");
+                scanf("%d", &escolhaUsuario);
+                getchar();
+                if (escolhaUsuario == 2) {
+                    mostraCadastros();
+                }
+            } else {
+                cadastra(l);
+                printf("\nIndivíduo(s) cadastrado no banco de pacientes.\n");
+                removerListaCompleta(l);  
+                Lista *l = inicializa_LDE();
+                printf("\nContinuar cadastramento ?\n\n");
+                printf("1 - SIM \n");
+                printf("2 - Mostrar banco de cadastros GSS\n");
+                printf("3 - Remover paciente\n");  
                 printf("0 - Cancelar operação e voltar ao MENU\n\n");
                 printf("Escolha: ");
                 scanf("%d", &escolhaUsuario);
                 getchar(); 
-                fclose(pacientes);
-              }
-
+                if (escolhaUsuario == 2) {
+                    mostraCadastros();
+                    printf("\n\nContinuar cadastramento ?\n\n");
+                    printf("1 - SIM \n");  
+                    printf("0 - Cancelar operação e voltar ao MENU\n\n");
+                    printf("Escolha: ");
+                    scanf("%d", &escolhaUsuario);
+                    getchar(); 
+                }
+            }
+        } else if (escolhaUsuario == 3) {
+            Lista *lista = inicializa_LDE();
+            Celula *atual = lista->primeiro;
+            FILE *pacientes = fopen("pacientes.txt", "r");
+            char linha[256];
+            while (fgets(linha, sizeof(linha), pacientes)) {
+                char nome[100], rg[100];
+                int idade, dia, mes, ano;
+                sscanf(linha, "Nome: %99[^,], Idade: %d, RG: %99[^,], Dia: %d, Mês: %d, Ano: %d",
+                       nome, &idade, rg, &dia, &mes, &ano);
+                inserirLDE(lista, nome, idade, rg, dia, mes, ano);
+            }
+            printf("\n--- Lista atual para cadastramento ---\n\n");
+            imprimirLDE(lista);
+            printf("\n");
+            printf("Digite o RG do indivíduo para remoção:");
+            fgets(rg, sizeof(rg), stdin);
+            rg[strcspn(rg, "\n")] = '\0'; //swap
+            removerLDE(lista, rg);
+            atualizaCadastro();
+            cadastra(lista);
+            Lista *l = inicializa_LDE();
+            printf("\nContinuar cadastramento ?\n\n");
+            printf("1 - SIM \n");
+            printf("2 - Salvar em Arquivo\n");
+            printf("3 - Remover paciente\n");  
+            printf("0 - Cancelar operação e voltar ao MENU\n\n");
+            printf("Escolha: ");
+            scanf("%d", &escolhaUsuario);
+            getchar(); 
         }
-        return 0;
-    }
-
+                
+        }
+        
+        
+    return 0;
+}
 
 
