@@ -12,11 +12,19 @@ int main(){
     }
 
     else if (escolhaDoUsuaro == 1){
-      menuCadastroPaciente();
+      cadastroDePaciente();
     }
 
+    else if( escolhaDoUsuaro ==2){
+      enfileiramento();
+    }
+
+    else if( escolhaDoUsuaro ==3){
+      arvorismo();
+    }
 
   } while (escolhaDoUsuaro!=0);
 
 
 }
+

@@ -5,6 +5,7 @@
 
 typedef struct Celula {
   struct Celula *proximo;
+  struct Celula *anterior;
   char nome[100];
   int idade;
   char rg[100];
@@ -18,6 +19,7 @@ typedef struct Lista {
   Celula *primeiro;
 } Lista;
 
+
 void inserirLDE(Lista *l, char *nome, int idade, char *rg, int dia, int mes,
                 int ano) {
   Celula *novo = malloc(sizeof(Celula));
@@ -30,18 +32,40 @@ void inserirLDE(Lista *l, char *nome, int idade, char *rg, int dia, int mes,
   novo->dia = dia;
   novo->mes = mes;
   novo->ano = ano;
-  novo->proximo = NULL;
-
-  if (l->primeiro == NULL) {
-    l->primeiro = novo;
-  } else {
-    Celula *atual = l->primeiro;
-    while (atual->proximo != NULL) {
-      atual = atual->proximo;
-    }
-    atual->proximo = novo;
+  novo->proximo = l->primeiro; 
+  novo->anterior = NULL; 
+  if (l->primeiro != NULL) {
+    l->primeiro->anterior = novo; 
   }
+  l->primeiro = novo; 
   l->qtde++;
+}
+
+void inserirNoFimLDE(Lista *l, char *nome, int idade, char *rg, int dia, int mes, int ano) {
+    Celula *novo = malloc(sizeof(Celula));
+    if (novo == NULL) {
+        return;
+    }
+    strcpy(novo->nome, nome);
+    novo->idade = idade;
+    strcpy(novo->rg, rg);
+    novo->dia = dia;
+    novo->mes = mes;
+    novo->ano = ano;
+    novo->proximo = NULL;
+    novo->anterior = NULL;
+
+    if (l->primeiro == NULL) {
+        l->primeiro = novo;
+    } else {
+        Celula *atual = l->primeiro;
+        while (atual->proximo != NULL) {
+            atual = atual->proximo;
+        }
+        atual->proximo = novo;
+        novo->anterior = atual;
+    }
+    l->qtde++;
 }
 
 void removerLDE(Lista *l, char *rg) {
@@ -56,7 +80,7 @@ void removerLDE(Lista *l, char *rg) {
     printf("--> Paciente não encontrado.\n");
     return;
   }
-  if (anterior == NULL) {
+  if (atual -> anterior == NULL) {
     l->primeiro = atual->proximo;
   } else {
     anterior->proximo = atual->proximo;
@@ -105,7 +129,7 @@ Lista *retorna_lista(Lista *lista){
             linha,
             "Nome: %99[^,], Idade: %d, RG: %99[^,], Dia: %d, Mês: %d, Ano: %d",
             nome, &idade, rg, &dia, &mes, &ano);
-        inserirLDE(lista, nome, idade, rg, dia, mes, ano);
+        inserirNoFimLDE(lista, nome, idade, rg, dia, mes, ano);
       }
     fclose(pacientes);
     return lista;
@@ -134,7 +158,7 @@ void removerCadastro() {
   fclose(arquivo);
 
   remove("pacientes.txt");
-  
+
   FILE *temp = fopen("temp.txt", "w");
 
   fclose(temp);
@@ -155,7 +179,7 @@ void atualizaNome(Lista *l, char *rg, char *nome) {
     return;
   }
   strcpy(atual->nome, nome);
-  printf("\n--> Paciente com nome atualizado.\n");
+  printf("\n--> Paciente com nome atualizado. --> Lista total de pacientes: \n");
 }
 
 void atualizaData(Lista *l, char *rg , int dia, int mes, int ano){
@@ -173,9 +197,8 @@ void atualizaData(Lista *l, char *rg , int dia, int mes, int ano){
   atual ->dia = dia;
   atual->mes = mes;
   atual->ano = ano;
-  printf("\n--> Paciente com nome atualizado.\n");
+  printf("\n--> Paciente com data atualizada. --> Lista completa de pacientes: \n");
 }
-
 
 void mostraCadastros() {
   printf("\n--- PACIENTES GSS ---\n\n");
@@ -195,8 +218,29 @@ void mostraCadastros() {
     inserirLDE(lista, nome, idade, rg, dia, mes, ano);
   }
   imprimirLDE(lista);
-  printf("\n---------------------\n");
+  printf("\n--- FIM ---\n");
   fclose(pacientes);
+}
+
+void mostraPaciente(Lista *l, char *rg){
+    Celula *atual = l->primeiro;
+    Celula *anterior = NULL;
+
+    while (atual != NULL && strcmp(atual->rg, rg) != 0) {
+      anterior = atual;
+      atual = atual->proximo;
+    }
+    if (atual == NULL) {
+      printf("--> Paciente não encontrado.\n");
+      return;
+    }
+  FILE *pacientes = fopen("pacientes.txt", "r");
+  if (pacientes == NULL) {
+    printf("--> Erro ao abrir o arquivo.\n");
+    return;
+  }
+  printf("\n--> Paciente: %s, Data de nascimentos: %d/%d/%d\n", atual->nome, atual-> dia, atual->mes, atual->ano);
+  
 }
 
 void cadastra(Lista *l) {
@@ -210,7 +254,7 @@ void cadastra(Lista *l) {
   Celula *atual = l->primeiro;
   while (atual != NULL) {
     fprintf(pacientes,
-            "Nome: %s, Idade: %d, RG: %s, Dia: %d, Mês: %d, Ano: %d \n",
+            "Nome: %s, Idade: %d, RG: %s, Dia: %d, Mês: %d, Ano: %d\n",
             atual->nome, atual->idade, atual->rg, atual->dia, atual->mes,
             atual->ano);
     atual = atual->proximo;
@@ -225,16 +269,18 @@ int cadastroDePaciente() {
   char rg[100];
   char mes_str[10];
   char ano_str[10];
+  char escolhaUsuario_str[10];
   int idade, dia, mes, ano, escolhaUsuario;
   Lista *l = inicializa_LDE();
 
-  printf("\n-------------------\n");
+  printf("\n--- Menu de Cadastros ---\n");
   printf("\n1 - Iniciar cadastro.\n");
   printf("2 - Manipulação de dados\n");
   printf("0 - Retornar ao menu.\n");
   printf("Escolha: ");
-  scanf("%d", &escolhaUsuario);
-  getchar();
+  fgets(escolhaUsuario_str, sizeof(escolhaUsuario_str), stdin);
+  escolhaUsuario_str[strcspn(escolhaUsuario_str, "\n")] = '\0';
+  escolhaUsuario = atoi(escolhaUsuario_str);
 
   while (escolhaUsuario != 0) {
 
@@ -263,17 +309,8 @@ int cadastroDePaciente() {
       ano_str[strcspn(ano_str, "\n")] = '\0';
       ano = atoi(ano_str);
       if (dia > 31 || mes > 12 || mes <= 0 || ano < 1900) {
-        printf("\nDatas inválidas\n");
-      } else if (mes == 2) {
-        if (ano % 4 == 0) {
-          if (dia > 29) {
-            printf("\nDatas inválidas\n");
-          }
-        } else {
-          if (dia > 28) {
-            printf("\nDatas inválidas\n");
-          }
-        }
+        printf("\nDatas inválidas. Retornado ao menu\n");
+        return 0;
       } else {
         inserirLDE(l, nome, idade, rg, dia, mes, ano);
         printf("\n");
@@ -282,28 +319,28 @@ int cadastroDePaciente() {
         printf("\n--> Continuar cadastramento ?\n\n");
         printf("1 - SIM \n");
         printf("2 - Salvar em Arquivo\n");
-        printf("3 - Remover paciente\n");
-        printf("4 - Atualização de nome\n");
-        printf("5 - Atualização de data\n"); 
         printf("0 - Cancelar operação e voltar ao MENU\n\n");
         printf("Escolha: ");
-        scanf("%d", &escolhaUsuario);
-        getchar();
+        fgets(escolhaUsuario_str, sizeof(escolhaUsuario_str), stdin);
+        escolhaUsuario_str[strcspn(escolhaUsuario_str, "\n")] = '\0';
+        escolhaUsuario = atoi(escolhaUsuario_str);
       }
     } else if (escolhaUsuario == 2) {
       Celula *atual = l->primeiro;
       if (atual == NULL) {
         l = inicializa_LDE();
-        printf("\n---------------------\n");
+        printf("\n--- Manipulação de dados ---\n");
         printf("\n1 - Iniciar novo cadastro \n");
         printf("2 - Mostrar banco de cadastros GSS\n");
         printf("3 - Remover paciente\n");
         printf("4 - Atualização de nome\n"); 
         printf("5 - Atualização de data\n"); 
+        printf("6 - Mostrar paciente específico\n");
         printf("0 - Cancelar operação e voltar ao MENU\n\n");
         printf("Escolha: ");
-        scanf("%d", &escolhaUsuario);
-        getchar();
+        fgets(escolhaUsuario_str, sizeof(escolhaUsuario_str), stdin);
+        escolhaUsuario_str[strcspn(escolhaUsuario_str, "\n")] = '\0';
+        escolhaUsuario = atoi(escolhaUsuario_str);
         if (escolhaUsuario == 2) {
           mostraCadastros();
         }
@@ -318,18 +355,21 @@ int cadastroDePaciente() {
         printf("3 - Remover paciente\n");
         printf("4 - Atualização de nome\n"); 
         printf("5 - Atualização de data\n"); 
+        printf("6 - Mostrar paciente específico\n");
         printf("0 - Cancelar operação e voltar ao MENU\n\n");
         printf("Escolha: ");
-        scanf("%d", &escolhaUsuario);
-        getchar();
+        fgets(escolhaUsuario_str, sizeof(escolhaUsuario_str), stdin);
+        escolhaUsuario_str[strcspn(escolhaUsuario_str, "\n")] = '\0';
+        escolhaUsuario = atoi(escolhaUsuario_str);
         if (escolhaUsuario == 2) {
           mostraCadastros();
           printf("\n\n--> Continuar cadastramento ?\n\n");
           printf("1 - SIM \n");
           printf("0 - Cancelar operação e voltar ao MENU\n\n");
           printf("Escolha: ");
-          scanf("%d", &escolhaUsuario);
-          getchar();
+          fgets(escolhaUsuario_str, sizeof(escolhaUsuario_str), stdin);
+          escolhaUsuario_str[strcspn(escolhaUsuario_str, "\n")] = '\0';
+          escolhaUsuario = atoi(escolhaUsuario_str);
         }
       }
     } else if (escolhaUsuario == 3) {
@@ -351,10 +391,12 @@ int cadastroDePaciente() {
       printf("3 - Remover paciente\n");
       printf("4 - Atualização de nome\n");
       printf("5 - Atualização de data\n"); 
+      printf("6 - Mostrar paciente específico\n");
       printf("0 - Cancelar operação e voltar ao MENU\n\n");
       printf("Escolha: ");
-      scanf("%d", &escolhaUsuario);
-      getchar();
+      fgets(escolhaUsuario_str, sizeof(escolhaUsuario_str), stdin);
+      escolhaUsuario_str[strcspn(escolhaUsuario_str, "\n")] = '\0';
+      escolhaUsuario = atoi(escolhaUsuario_str);
       if (escolhaUsuario == 2) {
         mostraCadastros();
       }
@@ -378,8 +420,9 @@ int cadastroDePaciente() {
       printf("1 - SIM \n");
       printf("0 - Cancelar operação e voltar ao MENU\n\n");
       printf("Escolha: ");
-      scanf("%d", &escolhaUsuario);
-      getchar();
+      fgets(escolhaUsuario_str, sizeof(escolhaUsuario_str), stdin);
+      escolhaUsuario_str[strcspn(escolhaUsuario_str, "\n")] = '\0';
+      escolhaUsuario = atoi(escolhaUsuario_str);
   } else if(escolhaUsuario == 5){
       Lista *lista2 =inicializa_LDE();
       char dia_str[10];
@@ -411,8 +454,24 @@ int cadastroDePaciente() {
       printf("1 - SIM \n");
       printf("0 - Cancelar operação e voltar ao MENU\n\n");
       printf("Escolha: ");
-      scanf("%d", &escolhaUsuario);
-      getchar();
+      fgets(escolhaUsuario_str, sizeof(escolhaUsuario_str), stdin);
+      escolhaUsuario_str[strcspn(escolhaUsuario_str, "\n")] = '\0';
+      escolhaUsuario = atoi(escolhaUsuario_str);
+  } else if(escolhaUsuario == 6){
+      Lista *lista3 =inicializa_LDE();
+      retorna_lista(lista3);
+      char rg[256];
+      printf("Digite o RG para localização: ");
+      fgets(rg, sizeof(rg), stdin);  
+      rg[strcspn(rg, "\n")] = '\0';
+      mostraPaciente(lista3, rg);
+      printf("\n--> Continuar cadastramento ?\n\n");
+      printf("1 - SIM \n");
+      printf("0 - Cancelar operação e voltar ao MENU\n\n");
+      printf("Escolha: ");
+      fgets(escolhaUsuario_str, sizeof(escolhaUsuario_str), stdin);
+      escolhaUsuario_str[strcspn(escolhaUsuario_str, "\n")] = '\0';
+      escolhaUsuario = atoi(escolhaUsuario_str);
   }
   }
   return 0;

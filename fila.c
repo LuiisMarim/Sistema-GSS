@@ -57,7 +57,8 @@ void enfileirar(fila *f, char *nome) {
 int desenfileirar(fila *f) {
 
   if (f->qtde == 0) {
-    printf("Fila vazia\n");
+    printf("--- Fila vazia --- \n");
+    return 1;
   }
 
   char *nome = f->primeiro->nome;
@@ -110,8 +111,7 @@ fila *retorna_fila(fila *f){
     }
     char linha[256];
     while (fgets(linha, sizeof(linha), pacientes)) {
-      char nome[100], rg[100];
-      int idade, dia, mes, ano;
+      char nome[100];
       sscanf(
           linha,
           "Nome: %99[^,]",
