@@ -27,10 +27,6 @@ O Sistema GSS (Gerenciamento de Serviços Públicos) consiste em uma codificaç�
    
    <img src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Cadastro_Arquivo.png" />
 
- * Excluir cadastro.
-   
-   <img src="https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Remover.png"/> 
-
  * Buscar paciente.
 
    <img src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Achar_Paciente.png" />
@@ -38,3 +34,43 @@ O Sistema GSS (Gerenciamento de Serviços Públicos) consiste em uma codificaç�
  * Mostrar a lista de cadastro.
 
    <img src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Exibe_Banco.png" />  
+
+* Excluir cadastro.
+   
+   <img src="https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Remover.png"/>
+
+* Estrutura usada
+
+   <img align = "left" width = "250" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Estrutura_lista.png" />
+
+<p align = "right">
+    <img width = "250" heigth = "300" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Lista.gif" />
+  </p>
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
+
+## Atendimento
+
+ * Colocar pacientes na fila
+
+    <img src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Enfileirar.png" />
+
+* Retirar pacientes da fila
+
+   <img src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/desenfileirar.png" />
+
+* Estrutura usada
+
+   <img align = "left" width = "250" src = "" />
+
+<p align = "right">
+    <img width = "250" heigth = "300" src = "" />
+  </p>   
+  
