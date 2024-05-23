@@ -72,7 +72,7 @@ O Sistema GSS (Gerenciamento de Serviços Públicos) consiste em uma codificaç�
 
 <p align = "right">
     <p align = "right">
-    <img width = "250" heigth = "300" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/fila.gif" />
+    <img width = "300" heigth = "300" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/fila.gif" />
   </p>
 
 </br>
