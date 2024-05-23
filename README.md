@@ -39,7 +39,7 @@ O Sistema GSS (Gerenciamento de Serviços Públicos) consiste em uma codificaç�
    
    <img src="https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Remover.png"/>
 
-* Estrutura usada
+* Estrutura usada.
 
    <img align = "left" width = "250" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Estrutura_lista.png" />
 
@@ -58,19 +58,79 @@ O Sistema GSS (Gerenciamento de Serviços Públicos) consiste em uma codificaç�
 
 ## Atendimento
 
- * Colocar pacientes na fila
+ * Colocar pacientes na fila.
 
     <img src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Enfileirar.png" />
 
-* Retirar pacientes da fila
+* Retirar pacientes da fila.
 
    <img src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/desenfileirar.png" />
 
-* Estrutura usada
+* Estrutura usada.
 
-   <img align = "left" width = "250" src = "" />
+   <img align = "left" width = "250" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Estrutura_fila.png" />
 
 <p align = "right">
-    <img width = "250" heigth = "300" src = "" />
-  </p>   
+    <img width = "250" heigth = "300" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/fila.gif" />
+  </p>
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+## Pesquisa
+
+  * Pesquisar paciente por ano ou mês.
+    
+    <p align = "middle">
+     <img height = "250" width = "250" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Pesquisa_Ano.png" />
+       
+    <img  width = "250" height = "250"  src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Pesquisa_Mes.png" />
+     </p>
+
+
+ * Pesquisar paciente por dia ou idade.
+
+   <p align = "middle">
+     <img height = "250" width = "250" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Pesquisa_Dia.png" />
+       
+    <img  width = "250" height = "250"  src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Pesquisa_Idade.png" />
+     </p>
+
+ * Estrutura usada.
+
+   <img align = "left" width = "250" heigth = "250" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Estrutura_arvore.png" />
+
+<p align = "right">
+    <img width = "250" heigth = "250" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/arvore.gif" />
+  </p>    
+
+
+## Developers.
+
+   * Stella de Oliveira.
+   * Luis Marim.
+
+## Disciplina.
+
+   * Estrutura de Dados.
+
+## Ciclo e Período.
+
+   * 4ª ciclo.
+   * Vespertino.
+
+## Curso
+
+  * Ciência da Computação.
+
+
+## Este é nosso projeto, agradecemos pela atenção. 
+
+<img align = "center" src ="https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/final.gif"/>
+  
   
