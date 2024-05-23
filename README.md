@@ -5,7 +5,7 @@ O Sistema GSS (Gerenciamento de Serviços Públicos) consiste em uma codificaç�
  * Árvore Binária de busca.
 
 ## Menu 💬
-
+<p align = "middle">
 <img src="https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Menu.png" />
 
 
@@ -16,35 +16,35 @@ O Sistema GSS (Gerenciamento de Serviços Públicos) consiste em uma codificaç�
 
 
 ## Cadastrar
-
+<p align = "middle">
 <img src="https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Cadastrando.png"/>
 
- * Salvar no arquivo.
-   
+ * Salvar em arquivo.
+   <p align = "middle">
    <img src="https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Cadastro_Salvo.png"/>
    
  * Salvar diversos cadastros de uma vez.
-   
+   <p align = "middle">
    <img src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Cadastro_Arquivo.png" />
 
  * Buscar paciente.
-
+   <p align = "middle">
    <img src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Achar_Paciente.png" />
 
  * Mostrar a lista de cadastro.
-
+   <p align = "middle">
    <img src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Exibe_Banco.png" />  
 
 * Excluir cadastro.
-   
+   <p align = "middle">
    <img src="https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Remover.png"/>
 
 * Estrutura usada.
-
+   <p align = "middle">
    <img align = "left" width = "250" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Estrutura_lista.png" />
 
 <p align = "right">
-    <img width = "250" heigth = "300" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Lista.gif" />
+    <img width = "450" heigth = "400" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Lista.gif" />
   </p>
 
 </br>
@@ -59,18 +59,19 @@ O Sistema GSS (Gerenciamento de Serviços Públicos) consiste em uma codificaç�
 ## Atendimento
 
  * Colocar pacientes na fila.
-
+    <p align = "middle">
     <img src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Enfileirar.png" />
 
 * Retirar pacientes da fila.
-
+   <p align = "middle">
    <img src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/desenfileirar.png" />
 
 * Estrutura usada.
-
+   <p align = "left">
    <img align = "left" width = "250" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Estrutura_fila.png" />
 
 <p align = "right">
+    <p align = "right">
     <img width = "250" heigth = "300" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/fila.gif" />
   </p>
 
@@ -110,10 +111,15 @@ O Sistema GSS (Gerenciamento de Serviços Públicos) consiste em uma codificaç�
   </p>    
 
 
-## Developers.
+## Devenvolvedores.
 
-   * Stella de Oliveira.
-   * Luis Marim.
+   DevLuisMarim ⬇️ <div style="display:
+ inline-block">[![E-mail](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/LuiisMarim)
+
+DevStellaOli ⬇️ <div style="display: inline-block">
+  
+[![E-mail](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/StellaOli)
+
 
 ## Disciplina.
 
@@ -130,7 +136,7 @@ O Sistema GSS (Gerenciamento de Serviços Públicos) consiste em uma codificaç�
 
 
 ## Este é nosso projeto, agradecemos pela atenção. 
-
+<p align = "middle">
 <img align = "center" src ="https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/final.gif"/>
   
   
