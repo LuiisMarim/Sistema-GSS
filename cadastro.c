@@ -296,15 +296,15 @@ int cadastroDePaciente() {
       printf("RG: ");
       fgets(rg, sizeof(rg), stdin);
       rg[strcspn(rg, "\n")] = '\0';
-      printf("Dia do nascimento: ");
+      printf("Dia do cadastro: ");
       fgets(dia_str, sizeof(dia_str), stdin);
       dia_str[strcspn(dia_str, "\n")] = '\0';
       dia = atoi(dia_str);
-      printf("Mês do nascimento: ");
+      printf("Mês do cadastro: ");
       fgets(mes_str, sizeof(mes_str), stdin);
       mes_str[strcspn(mes_str, "\n")] = '\0';
       mes = atoi(mes_str);
-      printf("Ano do nascimento: ");
+      printf("Ano do cadastro: ");
       fgets(ano_str, sizeof(ano_str), stdin);
       ano_str[strcspn(ano_str, "\n")] = '\0';
       ano = atoi(ano_str);
