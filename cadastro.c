@@ -215,7 +215,7 @@ void mostraCadastros() {
     sscanf(linha,
            "Nome: %99[^,], Idade: %d, RG: %99[^,], Dia: %d, Mês: %d, Ano: %d",
            nome, &idade, rg, &dia, &mes, &ano);
-    inserirLDE(lista, nome, idade, rg, dia, mes, ano);
+    inserirNoFimLDE(lista, nome, idade, rg, dia, mes, ano);
   }
   imprimirLDE(lista);
   printf("\n--- FIM ---\n");
