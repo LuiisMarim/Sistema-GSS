@@ -111,7 +111,7 @@ O Sistema GSS (Gerenciamento de Serviços Públicos) consiste em uma codificaç�
   </p>    
 
 
-## Devenvolvedores.
+## Devenvolvedores. ✒️
 
 DevLuisMarim ⬇️ <div style="display:
  inline-block">[![E-mail](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/LuiisMarim)
@@ -121,21 +121,12 @@ DevStellaOli ⬇️ <div style="display: inline-block">
 [![E-mail](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/StellaOli)
 
 
-## Disciplina.
-
-   * Estrutura de Dados.
-
-## Ciclo e Período.
-
-   * 4ª ciclo.
-   * Vespertino.
-
-## Curso
+## Curso. 🧑🏻‍💻
 
   * Ciência da Computação.
 
 
-## Este é nosso projeto, agradecemos pela atenção. 
+## Obrigado pela atenção. 🤗
 <p align = "middle">
 <img align = "center" src ="https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/final.gif"/>
   
