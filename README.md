@@ -1,5 +1,5 @@
 # Sistema GSS 🏥
-O Sistema GSS (Gerenciamento de Serviços Públicos) consiste em uma codificação com a utilização dos tópicos aprendidos na disciplina Estrutura de Dados. São esses:
+O Sistema GSS (Gerenciamento de Serviços Públicos) consiste em uma codificação com a utilização linguagem C e tópicos de Estrutura de Dados. São esses:
  * Lista Dinâmica Encadeada.
  * Fila.
  * Árvore Binária de busca.
