@@ -39,21 +39,9 @@ O Sistema GSS (Gerenciamento de Serviços Públicos) consiste em uma codificaç�
    <p align = "middle">
    <img src="https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Remover.png"/>
 
-* Estrutura usada. 💾
-   <p align = "middle">
-   <img align = "left" width = "250" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Estrutura_lista.png" />
-
-<p align = "right">
-    <img width = "450" heigth = "400" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Lista.gif" />
-  </p>
 
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-
 
 
 ## Atendimento. 👫👬👭
@@ -66,20 +54,7 @@ O Sistema GSS (Gerenciamento de Serviços Públicos) consiste em uma codificaç�
    <p align = "middle">
    <img src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/desenfileirar.png" />
 
-* Estrutura usada. 🔢
-   <p align = "left">
-   <img align = "left" width = "250" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Estrutura_fila.png" />
 
-<p align = "right">
-    <p align = "right">
-    <img width = "300" heigth = "300" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/fila.gif" />
-  </p>
-
-</br>
-</br>
-</br>
-</br>
-</br>
 </br>
 </br>
 
@@ -102,13 +77,6 @@ O Sistema GSS (Gerenciamento de Serviços Públicos) consiste em uma codificaç�
     <img  width = "250" height = "250"  src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Pesquisa_Idade.png" />
      </p>
 
- * Estrutura usada. 🌲
-
-   <img align = "left" width = "250" heigth = "250" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/Estrutura_arvore.png" />
-
-<p align = "right">
-    <img width = "250" heigth = "250" src = "https://github.com/LuiisMarim/Sistema-GSS/blob/main/Img/arvore.gif" />
-  </p>    
 
 
 ## Devenvolvedores. ✒️
